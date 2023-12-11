@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.Collection;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/employee")
@@ -25,9 +25,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
-        employeeService.addEmployee(firstName, lastName);
-        return new Employee(firstName, lastName);
+    public Employee addEmployee(@RequestParam String firstName,
+                                @RequestParam String lastName,
+                                @RequestParam int department,
+                                @RequestParam int salary
+    ) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
+        employeeService.addEmployee(firstName, lastName ,department,salary);
+        return new Employee(firstName, lastName,department,salary);
     }
 
     @GetMapping("/remove")
