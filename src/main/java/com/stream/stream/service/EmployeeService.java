@@ -95,14 +95,5 @@ public class EmployeeService {
                 .sum();
     }
 
-    public void printAllEmployeesFromDepartment(int department) {
-        employees.values().stream()
-                .filter(employee -> employee.getDepartment() == department)
-                .forEach(employee -> System.out.printf(
-                        "ФИО: %s, Депортамент %f, Зарплата: %d",
-                        employee.getFullName(),
-                        employee.getDepartment(),
-                        employee.getSalary()
-                ));
-    }
+
 }

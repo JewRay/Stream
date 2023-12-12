@@ -21,11 +21,11 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
     @GetMapping("/max-salary")
-    public Employee getEmployeeWithMaxSalary(@RequestParam ("departmentId")int department) throws EmployeeNotFoundException {
+    public Employee getEmployeeWithMaxSalary(@RequestParam ("departmentId")int department){
         return departmentService.getEmployeeWithMaxSalary(department);
     }
     @GetMapping("/min-salary")
-    public Employee getEmployeeWithMinSalary(@RequestParam ("departmentId")int department) throws EmployeeNotFoundException {
+    public Employee getEmployeeWithMinSalary(@RequestParam ("departmentId")int department){
         return departmentService.getEmployeeWithMinSalary(department);
     }
     @GetMapping(value = "/all",params = "departmentId")
