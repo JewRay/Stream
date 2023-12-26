@@ -4,20 +4,26 @@ import com.stream.stream.exceptions.EmployeeAlreadyAddedException;
 import com.stream.stream.exceptions.EmployeeNotFoundException;
 import com.stream.stream.exceptions.EmployeeStorageIsFullException;
 import com.stream.stream.model.Employee;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
-
+@Service
 public class EmployeeService {
     private final Map<String, Employee> employees;
+    private final ValidationService validationService;
     private static final int MAX_EMPLOYEES = 10;
 
-    public EmployeeService() {
+    public EmployeeService(ValidationService validationService) {
+        this.validationService = validationService;
         employees = new HashMap<>();
     }
 
     public Employee addEmployee(String firstName, String lastName, int department, int salary) throws EmployeeAlreadyAddedException, EmployeeStorageIsFullException {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        Employee employee = new Employee(validationService.validate(firstName), validationService.validate(lastName), department, salary);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -43,7 +49,6 @@ public class EmployeeService {
             return employees.get(employee.getFullName());
 
         }
-
         throw new EmployeeNotFoundException();
     }
 
